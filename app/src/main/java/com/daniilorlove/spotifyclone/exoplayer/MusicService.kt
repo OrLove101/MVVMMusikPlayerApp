@@ -12,6 +12,7 @@ import com.daniilorlove.spotifyclone.exoplayer.callbacks.MusicPlaybackPreparer
 import com.daniilorlove.spotifyclone.exoplayer.callbacks.MusicPlayerEventListener
 import com.daniilorlove.spotifyclone.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.daniilorlove.spotifyclone.util.Constants.MEDIA_ROOT_ID
+import com.daniilorlove.spotifyclone.util.Constants.NETWORK_ERROR
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
@@ -151,6 +152,7 @@ class MusicService(
                             isPlayerInitialized = true
                         }
                     } else {
+                        mediaSession?.sendSessionEvent(NETWORK_ERROR, null)
                         result.sendResult(null)
                     }
                 }
