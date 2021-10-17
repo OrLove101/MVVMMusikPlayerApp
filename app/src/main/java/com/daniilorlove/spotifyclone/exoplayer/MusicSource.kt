@@ -18,7 +18,7 @@ class MusicSource @Inject constructor(
     private val musicDb: MusicDatabase
 ) {
 
-    private var songs = emptyList<MediaMetadataCompat>()
+    var songs = emptyList<MediaMetadataCompat>()
 
     fun fetchMediaData() {
         state = State.STATE_INITIALIZED
@@ -58,7 +58,7 @@ class MusicSource @Inject constructor(
             .setIconUri(song.description.iconUri)
             .build()
         MediaBrowserCompat.MediaItem(desc, FLAG_PLAYABLE)
-    }
+    }.toMutableList()
 
     private val onReadyListeners = mutableListOf<(Boolean) -> Unit>()
 
