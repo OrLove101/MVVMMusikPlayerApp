@@ -23,16 +23,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import javax.inject.Inject
 
 
 private const val SERVICE_TAG = "MusicService"
 
 @AndroidEntryPoint
-class MusicService(
-    private val dataSourceFactory: DefaultDataSourceFactory,
-    private val exoPlayer: SimpleExoPlayer,
-    private val musicSource: MusicSource
-): MediaBrowserServiceCompat() {
+class MusicService: MediaBrowserServiceCompat() {
+
+    @Inject
+    lateinit var dataSourceFactory: DefaultDataSourceFactory
+
+    @Inject
+    lateinit var exoPlayer: SimpleExoPlayer
+
+    @Inject
+    lateinit var musicSource: MusicSource
 
     private var musicNotificationManager: MusicNotificationManager? = null
 
