@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.daniilorlove.spotifyclone.data.models.Song
 import com.daniilorlove.spotifyclone.databinding.ListItemBinding
+import com.daniilorlove.spotifyclone.databinding.SwipeItemBinding
 import javax.inject.Inject
 
-class SongAdapter @Inject constructor(
+class SwipeSongAdapter @Inject constructor(
     private val glide: RequestManager
-): RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
+): RecyclerView.Adapter<SwipeSongAdapter.SongViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
-        val binding = ListItemBinding.inflate(
+        val binding = SwipeItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -53,20 +54,20 @@ class SongAdapter @Inject constructor(
         onItemClickListener = listener
     }
 
-    inner class SongViewHolder(private val binding: ListItemBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    inner class SongViewHolder(private val binding: SwipeItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(item: Song) {
-                binding.apply {
-                    tvPrimary.text = item.title
-                    glide.load(item.bitmapUri).into(ivItemImage)
+        fun bind(item: Song) {
+            binding.apply {
+                val text = "${item.title}"
+                tvPrimary.text = text
 
-                    root.setOnClickListener {
-                        onItemClickListener?.let { click ->
-                            click(item)
-                        }
+                root.setOnClickListener {
+                    onItemClickListener?.let { click ->
+                        click(item)
                     }
                 }
             }
+        }
     }
 }

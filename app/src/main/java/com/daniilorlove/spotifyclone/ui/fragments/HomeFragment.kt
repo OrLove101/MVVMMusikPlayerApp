@@ -1,6 +1,7 @@
 package com.daniilorlove.spotifyclone.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,11 +60,17 @@ class HomeFragment: Fragment() {
                 Status.SUCCESS -> {
                     binding.allSongsProgressBar.isVisible = false
                     result.data?.let { songs ->
+                        Log.d(TAG, songs.toString())
                         songAdapter.songs = songs
                     }
                 }
-                Status.ERROR -> Unit
-                Status.LOADING -> binding.allSongsProgressBar.isVisible = true
+                Status.ERROR -> {
+                    Log.d(TAG, "subscribeToObservers: ERROR")
+                }
+                Status.LOADING -> {
+                    Log.d(TAG, "subscribeToObservers: LOADING")
+                    binding.allSongsProgressBar.isVisible = true
+                }
             }
         }
     }
@@ -73,3 +80,5 @@ class HomeFragment: Fragment() {
         _binding = null
     }
 }
+
+private const val TAG = "HomeFragment"

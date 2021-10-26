@@ -21,7 +21,7 @@ class MusicSource @Inject constructor(
     var songs = emptyList<MediaMetadataCompat>()
 
     fun fetchMediaData() {
-        state = State.STATE_INITIALIZED
+        state = State.STATE_INITIALIZING
         val allSongs = musicDb.getAllSongs()
         songs = allSongs?.map { song ->
             MediaMetadataCompat.Builder()
@@ -77,7 +77,7 @@ class MusicSource @Inject constructor(
         }
 
     fun whenReady(action: (Boolean) -> Unit): Boolean {
-        if (state == State.STATE_CREATED || state == State.STATE_INITIALIZED) {
+        if (state == State.STATE_CREATED || state == State.STATE_INITIALIZING) {
             onReadyListeners += action
             return false
         } else {

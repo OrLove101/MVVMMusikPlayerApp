@@ -35,14 +35,14 @@ class MainViewModel @Inject constructor(
                 parentId: String,
                 children: MutableList<MediaBrowserCompat.MediaItem>
             ) {
-                super.onChildrenLoaded(parentId, children)
+                super.onChildrenLoaded(parentId, children) // TODO should to be called
                 val items = children.map {
                     Song(
                         it.mediaId!!,
                         it.description.title.toString(),
                         it.description.subtitle.toString(),
-                        it.description.mediaUri.toString(),
                         it.description.iconUri.toString(),
+                        it.description.mediaUri.toString(),
                         0 // TODO get duration if needed
                     )
                 }

@@ -8,6 +8,7 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.daniilorlove.spotifyclone.util.Constants.NETWORK_ERROR
@@ -62,6 +63,7 @@ class MusicServiceConnection @Inject constructor(
         private val context: Context
     ): MediaBrowserCompat.ConnectionCallback() {
         override fun onConnected() {
+            Log.d(TAG, "onConnected: MusicServiceConnection")
             mediaController = MediaControllerCompat(context, mediaBrowser.sessionToken).apply {
                 registerCallback(MediaControllerCallback())
             }
@@ -69,12 +71,14 @@ class MusicServiceConnection @Inject constructor(
         }
 
         override fun onConnectionSuspended() {
+            Log.d(TAG, "onConnectionSuspended: MusicServiceConnection")
             _isConnected.postValue(Event(Resource.error(
                 "The connection was suspended", false
             )))
         }
 
         override fun onConnectionFailed() {
+            Log.d(TAG, "onConnectionFailed: MusicServiceConnection")
             _isConnected.postValue(Event(Resource.error(
                 "Couldn't connect to media browser", false
             )))
@@ -110,3 +114,5 @@ class MusicServiceConnection @Inject constructor(
         }
     }
 }
+
+private const val TAG = "MusicServiceConnection"
